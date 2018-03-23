@@ -1,8 +1,6 @@
 FROM nvidia/cuda:8.0-cudnn7-runtime-ubuntu14.04
 
-# ENV APT_INSTALL=apt-get install -y --no-install-recommends
-# ENV PIP_INSTALL=pip --no-cache-dir install --upgrade
-# ENV GIT_CLONE=git clone --depth 10
+MAINTAINER Meet P Shah <meetshah1995@gmail.com>
 
 RUN rm -rf /var/lib/apt/lists/* \
     /etc/apt/sources.list.d/cuda.list \
@@ -11,7 +9,6 @@ RUN rm -rf /var/lib/apt/lists/* \
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends apt-utils build-essential sudo git
-
 
 # tools
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates cmake libjpeg-dev wget git vim software-properties-common
@@ -22,7 +19,6 @@ RUN add-apt-repository ppa:fkrull/deadsnakes && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
         python2.7 \
         python2.7-dev
-
 
 # python packages
 RUN wget -O ~/get-pip.py \
@@ -40,3 +36,11 @@ RUN ldconfig && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+# Expose ports 
+# 6006 for tensorbard, 
+# 443 for visdom
+# 8888 for jupyter notebooks
+EXPOSE 443 6006 8888
+
+CMD ["/bin/bash"]
