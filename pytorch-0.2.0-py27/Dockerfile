@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn7-runtime-ubuntu14.04
+FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu14.04
 
 MAINTAINER Meet P Shah <meetshah1995@gmail.com>
 
@@ -11,7 +11,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils build-essential sudo git
 
 # tools
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates cmake libjpeg-dev wget git vim software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates cmake libjpeg-dev wget git vim software-properties-common libsm6 libxext6 libgtk2.0-dev
 
 # python
 RUN add-apt-repository ppa:fkrull/deadsnakes && \
